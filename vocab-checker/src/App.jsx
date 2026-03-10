@@ -47,16 +47,18 @@ function VennDiagram({ nameA, nameB, countA, countB, overlap }) {
   const r = 90;
   const ratio = Math.min(overlap / Math.max(Math.min(countA, countB), 1), 1);
   const off = r * (1.4 - ratio * 0.8);
+  
+  // mikan風のテーマカラーに合わせた配色（A:オレンジ, B:ブルー, 共通:グリーン）
   return (
-    <svg viewBox="0 0 400 220" style={{ width: "100%", maxWidth: 420, margin: "0 auto", display: "block" }}>
-      <circle cx={200 - off / 2} cy={110} r={r} fill="rgba(59,130,246,0.25)" stroke="#3b82f6" strokeWidth={2} />
-      <circle cx={200 + off / 2} cy={110} r={r} fill="rgba(239,68,68,0.25)" stroke="#ef4444" strokeWidth={2} />
-      <text x={200 - off / 2 - 30} y={105} textAnchor="middle" fontSize={11} fill="#1e40af" fontWeight={600}>{nameA.length > 10 ? nameA.slice(0, 10) + ".." : nameA}</text>
-      <text x={200 - off / 2 - 30} y={125} textAnchor="middle" fontSize={18} fill="#1e40af" fontWeight={700}>{countA - overlap}</text>
-      <text x={200 + off / 2 + 30} y={105} textAnchor="middle" fontSize={11} fill="#991b1b" fontWeight={600}>{nameB.length > 10 ? nameB.slice(0, 10) + ".." : nameB}</text>
-      <text x={200 + off / 2 + 30} y={125} textAnchor="middle" fontSize={18} fill="#991b1b" fontWeight={700}>{countB - overlap}</text>
-      <text x={200} y={105} textAnchor="middle" fontSize={11} fill="#6b21a8" fontWeight={600}>共通</text>
-      <text x={200} y={125} textAnchor="middle" fontSize={20} fill="#6b21a8" fontWeight={700}>{overlap}</text>
+    <svg viewBox="0 0 400 220" style={{ width: "100%", maxWidth: 420, margin: "16px auto", display: "block" }}>
+      <circle cx={200 - off / 2} cy={110} r={r} fill="rgba(249, 115, 22, 0.15)" stroke="#f97316" strokeWidth={3} />
+      <circle cx={200 + off / 2} cy={110} r={r} fill="rgba(14, 165, 233, 0.15)" stroke="#0ea5e9" strokeWidth={3} />
+      <text x={200 - off / 2 - 30} y={105} textAnchor="middle" fontSize={12} fill="#c2410c" fontWeight={700}>{nameA.length > 10 ? nameA.slice(0, 10) + ".." : nameA}</text>
+      <text x={200 - off / 2 - 30} y={128} textAnchor="middle" fontSize={22} fill="#c2410c" fontWeight={800}>{countA - overlap}</text>
+      <text x={200 + off / 2 + 30} y={105} textAnchor="middle" fontSize={12} fill="#0369a1" fontWeight={700}>{nameB.length > 10 ? nameB.slice(0, 10) + ".." : nameB}</text>
+      <text x={200 + off / 2 + 30} y={128} textAnchor="middle" fontSize={22} fill="#0369a1" fontWeight={800}>{countB - overlap}</text>
+      <text x={200} y={105} textAnchor="middle" fontSize={12} fill="#047857" fontWeight={700}>共通</text>
+      <text x={200} y={128} textAnchor="middle" fontSize={24} fill="#047857" fontWeight={800}>{overlap}</text>
     </svg>
   );
 }
@@ -65,13 +67,13 @@ function WordList({ title, words, color, bg, searchTerm }) {
   const filtered = words.filter(w => w.includes(searchTerm.toLowerCase()));
   if (words.length === 0) return null;
   return (
-    <div style={{ background: bg, borderRadius: 12, border: "1px solid #e2e8f0", padding: 16, marginTop: 12 }}>
-      <div style={{ fontWeight: 700, fontSize: 14, color, marginBottom: 8 }}>
+    <div style={{ background: "#ffffff", borderRadius: 16, border: `2px solid ${color}30`, padding: 20, marginTop: 16, boxShadow: "0 4px 12px rgba(0,0,0,0.03)" }}>
+      <div style={{ fontWeight: 800, fontSize: 16, color, marginBottom: 12 }}>
         {title} ({searchTerm ? filtered.length + "/" : ""}{words.length}語)
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 5, maxHeight: 250, overflowY: "auto" }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8, maxHeight: 300, overflowY: "auto", paddingRight: 4 }}>
         {filtered.map(w => (
-          <span key={w} style={{ padding: "3px 9px", background: color + "18", color, borderRadius: 6, fontSize: 12, fontWeight: 500 }}>{w}</span>
+          <span key={w} style={{ padding: "6px 14px", background: bg, color, borderRadius: 20, fontSize: 13, fontWeight: 700, border: `1px solid ${color}20` }}>{w}</span>
         ))}
       </div>
     </div>
@@ -83,7 +85,7 @@ export default function App() {
   const [selB, setSelB] = useState("");
   const [search, setSearch] = useState("");
   const [showList, setShowList] = useState("overlap");
-
+  
   const bookA = TEXTBOOKS.find(t => t.id === selA);
   const bookB = TEXTBOOKS.find(t => t.id === selB);
   const overlap = bookA && bookB ? getOverlap(bookA.words, bookB.words) : [];
@@ -91,26 +93,36 @@ export default function App() {
   const uniqB = bookA && bookB ? getUnique(bookB.words, bookA.words) : [];
 
   return (
-    <div style={{ fontFamily: "'Segoe UI', system-ui, sans-serif", maxWidth: 800, margin: "0 auto", padding: "20px 16px", color: "#1e293b" }}>
-      <div style={{ textAlign: "center", marginBottom: 24 }}>
-        <h1 style={{ fontSize: 21, fontWeight: 700, margin: 0 }}>教材単語 重複チェッカー</h1>
-        <p style={{ color: "#64748b", fontSize: 13, margin: "4px 0 0" }}>2つの教材を選んで共通単語を分析</p>
+    <div style={{ 
+      fontFamily: "'Zen Maru Gothic', 'Hiragino Rounded W3 JIS2004', 'Hiragino Maru Gothic ProN', 'Nunito', 'Meiryo', sans-serif", 
+      maxWidth: 800, 
+      margin: "0 auto", 
+      padding: "32px 20px", 
+      color: "#334155",
+      background: "#FAFAFA",
+      minHeight: "100vh"
+    }}>
+      <div style={{ textAlign: "center", marginBottom: 32 }}>
+        <h1 style={{ fontSize: 24, fontWeight: 800, margin: 0, color: "#f97316" }}>教材単語 重複チェッカー</h1>
+        <p style={{ color: "#64748b", fontSize: 14, margin: "8px 0 0", fontWeight: 600 }}>2つの教材を選んで共通単語を分析</p>
       </div>
 
-      <div style={{ display: "flex", gap: 12, marginBottom: 20, flexWrap: "wrap" }}>
-        <div style={{ flex: 1, minWidth: 180 }}>
-          <label style={{ fontSize: 12, fontWeight: 600, color: "#3b82f6", marginBottom: 4, display: "block" }}>教材 A</label>
-          <select value={selA} onChange={e => setSelA(e.target.value)} style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: "2px solid #bfdbfe", fontSize: 14, background: "#eff6ff", color: "#1e40af", fontWeight: 500 }}>
+      <div style={{ display: "flex", gap: 16, marginBottom: 24, flexWrap: "wrap", alignItems: "center" }}>
+        <div style={{ flex: 1, minWidth: 200, background: "#ffffff", padding: 16, borderRadius: 16, boxShadow: "0 4px 12px rgba(0,0,0,0.03)" }}>
+          <label style={{ fontSize: 13, fontWeight: 700, color: "#f97316", marginBottom: 8, display: "block" }}>教材 A</label>
+          <select value={selA} onChange={e => setSelA(e.target.value)} style={{ width: "100%", padding: "12px 16px", borderRadius: 12, border: "2px solid #fdba74", fontSize: 15, background: "#fff7ed", color: "#c2410c", fontWeight: 600, outline: "none", cursor: "pointer" }}>
             <option value="">選択してください</option>
             {TEXTBOOKS.filter(t => t.id !== selB).map(t => (
               <option key={t.id} value={t.id}>{t.name} ({t.words.length}語)</option>
             ))}
           </select>
         </div>
-        <div style={{ display: "flex", alignItems: "flex-end", paddingBottom: 8, fontSize: 20, color: "#cbd5e1" }}>⇄</div>
-        <div style={{ flex: 1, minWidth: 180 }}>
-          <label style={{ fontSize: 12, fontWeight: 600, color: "#ef4444", marginBottom: 4, display: "block" }}>教材 B</label>
-          <select value={selB} onChange={e => setSelB(e.target.value)} style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: "2px solid #fecaca", fontSize: 14, background: "#fef2f2", color: "#991b1b", fontWeight: 500 }}>
+
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, color: "#cbd5e1", fontWeight: 800 }}>⇄</div>
+
+        <div style={{ flex: 1, minWidth: 200, background: "#ffffff", padding: 16, borderRadius: 16, boxShadow: "0 4px 12px rgba(0,0,0,0.03)" }}>
+          <label style={{ fontSize: 13, fontWeight: 700, color: "#0ea5e9", marginBottom: 8, display: "block" }}>教材 B</label>
+          <select value={selB} onChange={e => setSelB(e.target.value)} style={{ width: "100%", padding: "12px 16px", borderRadius: 12, border: "2px solid #bae6fd", fontSize: 15, background: "#f0f9ff", color: "#0369a1", fontWeight: 600, outline: "none", cursor: "pointer" }}>
             <option value="">選択してください</option>
             {TEXTBOOKS.filter(t => t.id !== selA).map(t => (
               <option key={t.id} value={t.id}>{t.name} ({t.words.length}語)</option>
@@ -120,41 +132,55 @@ export default function App() {
       </div>
 
       {bookA && bookB && (
-        <>
+        <div style={{ background: "#ffffff", padding: "24px 16px", borderRadius: 20, boxShadow: "0 4px 16px rgba(0,0,0,0.04)" }}>
           <VennDiagram nameA={bookA.name} nameB={bookB.name} countA={bookA.words.length} countB={bookB.words.length} overlap={overlap.length} />
+          
+          <div style={{ fontSize: 14, color: "#64748b", textAlign: "center", marginBottom: 20, fontWeight: 600 }}>
+            重複率: <strong style={{ color: "#10b981", fontSize: 16, marginLeft: 4 }}>{bookA.words.length > 0 && bookB.words.length > 0 ? ((overlap.length / Math.min(bookA.words.length, bookB.words.length)) * 100).toFixed(1) : 0}%</strong>（少ない方の教材に対して）
+          </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, margin: "16px 0" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, margin: "20px 0" }}>
             {[
-              { l: bookA.name + "のみ", v: uniqA.length, c: "#3b82f6", bg: "#eff6ff", k: "uniqA" },
-              { l: "共通単語", v: overlap.length, c: "#7c3aed", bg: "#f5f3ff", k: "overlap" },
-              { l: bookB.name + "のみ", v: uniqB.length, c: "#ef4444", bg: "#fef2f2", k: "uniqB" },
+              { l: bookA.name + "のみ", v: uniqA.length, c: "#f97316", bg: "#fff7ed", border: "#fdba74", k: "uniqA" },
+              { l: "共通単語", v: overlap.length, c: "#10b981", bg: "#ecfdf5", border: "#6ee7b7", k: "overlap" },
+              { l: bookB.name + "のみ", v: uniqB.length, c: "#0ea5e9", bg: "#f0f9ff", border: "#bae6fd", k: "uniqB" },
             ].map(s => (
-              <div key={s.k} onClick={() => setShowList(s.k)} style={{ textAlign: "center", padding: "12px 6px", background: showList === s.k ? s.c + "12" : s.bg, borderRadius: 10, border: showList === s.k ? "2px solid " + s.c : "1px solid " + s.c + "22", cursor: "pointer", transition: "all 0.15s" }}>
-                <div style={{ fontSize: 26, fontWeight: 700, color: s.c }}>{s.v}</div>
-                <div style={{ fontSize: 10, color: s.c, fontWeight: 600, marginTop: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.l}</div>
+              <div key={s.k} onClick={() => setShowList(s.k)} style={{ 
+                textAlign: "center", 
+                padding: "16px 8px", 
+                background: showList === s.k ? s.bg : "#ffffff", 
+                borderRadius: 16, 
+                border: showList === s.k ? `2px solid ${s.c}` : `2px solid #f1f5f9`, 
+                cursor: "pointer", 
+                transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+                boxShadow: showList === s.k ? `0 4px 12px ${s.c}20` : "none"
+              }}>
+                <div style={{ fontSize: 28, fontWeight: 800, color: showList === s.k ? s.c : "#94a3b8" }}>{s.v}</div>
+                <div style={{ fontSize: 12, color: showList === s.k ? s.c : "#64748b", fontWeight: 700, marginTop: 4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.l}</div>
               </div>
             ))}
           </div>
 
-          <div style={{ fontSize: 13, color: "#64748b", textAlign: "center", marginBottom: 12 }}>
-            重複率: <strong style={{ color: "#7c3aed" }}>{bookA.words.length > 0 && bookB.words.length > 0 ? ((overlap.length / Math.min(bookA.words.length, bookB.words.length)) * 100).toFixed(1) : 0}%</strong>（少ない方の教材に対して）
-          </div>
-
-          <input placeholder="単語を検索..." value={search} onChange={e => setSearch(e.target.value)} style={{ width: "100%", padding: "8px 14px", borderRadius: 8, border: "1px solid #cbd5e1", fontSize: 13, marginBottom: 4, boxSizing: "border-box" }} />
-
-          {showList === "overlap" && <WordList title="共通単語" words={overlap} color="#7c3aed" bg="#faf5ff" searchTerm={search} />}
-          {showList === "uniqA" && <WordList title={bookA.name + "のみ"} words={uniqA} color="#3b82f6" bg="#eff6ff" searchTerm={search} />}
-          {showList === "uniqB" && <WordList title={bookB.name + "のみ"} words={uniqB} color="#ef4444" bg="#fef2f2" searchTerm={search} />}
-        </>
+          <input 
+            placeholder="単語を検索..." 
+            value={search} 
+            onChange={e => setSearch(e.target.value)} 
+            style={{ width: "100%", padding: "14px 20px", borderRadius: 12, border: "2px solid #e2e8f0", fontSize: 15, marginBottom: 8, boxSizing: "border-box", fontWeight: 600, outlineColor: "#f97316", background: "#f8fafc" }} 
+          />
+          
+          {showList === "overlap" && <WordList title="共通単語" words={overlap} color="#10b981" bg="#ecfdf5" searchTerm={search} />}
+          {showList === "uniqA" && <WordList title={bookA.name + "のみ"} words={uniqA} color="#f97316" bg="#fff7ed" searchTerm={search} />}
+          {showList === "uniqB" && <WordList title={bookB.name + "のみ"} words={uniqB} color="#0ea5e9" bg="#f0f9ff" searchTerm={search} />}
+        </div>
       )}
 
       {(!bookA || !bookB) && (
-        <div style={{ textAlign: "center", padding: 40, color: "#94a3b8" }}>
-          <p style={{ fontSize: 36, margin: 0 }}>📊</p>
-          <p>上のセレクトボックスから2つの教材を選んでください</p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "center", marginTop: 16 }}>
+        <div style={{ textAlign: "center", padding: "64px 20px", background: "#ffffff", borderRadius: 20, boxShadow: "0 4px 12px rgba(0,0,0,0.02)", marginTop: 16 }}>
+          <p style={{ fontSize: 48, margin: "0 0 16px 0" }}>🍊</p>
+          <p style={{ color: "#64748b", fontWeight: 700, fontSize: 15 }}>上のセレクトボックスから2つの教材を選んでください</p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", marginTop: 24 }}>
             {TEXTBOOKS.map(t => (
-              <span key={t.id} style={{ padding: "4px 10px", background: "#f1f5f9", borderRadius: 6, fontSize: 12, color: "#475569" }}>{t.name} ({t.words.length}語)</span>
+              <span key={t.id} style={{ padding: "6px 12px", background: "#f1f5f9", borderRadius: 12, fontSize: 13, color: "#64748b", fontWeight: 600 }}>{t.name} ({t.words.length}語)</span>
             ))}
           </div>
         </div>
