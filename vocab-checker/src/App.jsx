@@ -24,23 +24,19 @@ function parseWords(str) {
   });
   return [...s].sort();
 }
-
 const TEXTBOOKS = Object.entries(TEXTBOOKS_RAW).map(([name, raw]) => ({
   id: name,
   name,
   words: parseWords(raw)
 }));
-
 function getOverlap(a, b) {
   const sb = new Set(b);
   return a.filter(w => sb.has(w)).sort();
 }
-
 function getUnique(words, other) {
   const os = new Set(other);
   return words.filter(w => !os.has(w)).sort();
 }
-
 function VennDiagram({ nameA, nameB, countA, countB, overlap }) {
   const total = countA + countB - overlap;
   if (total === 0) return null;
@@ -62,7 +58,6 @@ function VennDiagram({ nameA, nameB, countA, countB, overlap }) {
     </svg>
   );
 }
-
 function WordList({ title, words, color, bg, searchTerm }) {
   const filtered = words.filter(w => w.includes(searchTerm.toLowerCase()));
   if (words.length === 0) return null;
@@ -79,7 +74,6 @@ function WordList({ title, words, color, bg, searchTerm }) {
     </div>
   );
 }
-
 export default function App() {
   const [selA, setSelA] = useState("");
   const [selB, setSelB] = useState("");
@@ -91,7 +85,6 @@ export default function App() {
   const overlap = bookA && bookB ? getOverlap(bookA.words, bookB.words) : [];
   const uniqA = bookA && bookB ? getUnique(bookA.words, bookB.words) : [];
   const uniqB = bookA && bookB ? getUnique(bookB.words, bookA.words) : [];
-
   return (
     <div style={{ 
       fontFamily: "'Zen Maru Gothic', 'Hiragino Rounded W3 JIS2004', 'Hiragino Maru Gothic ProN', 'Nunito', 'Meiryo', sans-serif", 
@@ -106,7 +99,6 @@ export default function App() {
         <h1 style={{ fontSize: 24, fontWeight: 800, margin: 0, color: "#f97316" }}>教材単語 重複チェッカー</h1>
         <p style={{ color: "#64748b", fontSize: 14, margin: "8px 0 0", fontWeight: 600 }}>2つの教材を選んで共通単語を分析</p>
       </div>
-
       <div style={{ display: "flex", gap: 16, marginBottom: 24, flexWrap: "wrap", alignItems: "center" }}>
         <div style={{ flex: 1, minWidth: 200, background: "#ffffff", padding: 16, borderRadius: 16, boxShadow: "0 4px 12px rgba(0,0,0,0.03)" }}>
           <label style={{ fontSize: 13, fontWeight: 700, color: "#f97316", marginBottom: 8, display: "block" }}>教材 A</label>
@@ -117,9 +109,7 @@ export default function App() {
             ))}
           </select>
         </div>
-
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, color: "#cbd5e1", fontWeight: 800 }}>⇄</div>
-
         <div style={{ flex: 1, minWidth: 200, background: "#ffffff", padding: 16, borderRadius: 16, boxShadow: "0 4px 12px rgba(0,0,0,0.03)" }}>
           <label style={{ fontSize: 13, fontWeight: 700, color: "#0ea5e9", marginBottom: 8, display: "block" }}>教材 B</label>
           <select value={selB} onChange={e => setSelB(e.target.value)} style={{ width: "100%", padding: "12px 16px", borderRadius: 12, border: "2px solid #bae6fd", fontSize: 15, background: "#f0f9ff", color: "#0369a1", fontWeight: 600, outline: "none", cursor: "pointer" }}>
@@ -130,7 +120,6 @@ export default function App() {
           </select>
         </div>
       </div>
-
       {bookA && bookB && (
         <div style={{ background: "#ffffff", padding: "24px 16px", borderRadius: 20, boxShadow: "0 4px 16px rgba(0,0,0,0.04)" }}>
           <VennDiagram nameA={bookA.name} nameB={bookB.name} countA={bookA.words.length} countB={bookB.words.length} overlap={overlap.length} />
@@ -138,7 +127,6 @@ export default function App() {
           <div style={{ fontSize: 14, color: "#64748b", textAlign: "center", marginBottom: 20, fontWeight: 600 }}>
             重複率: <strong style={{ color: "#10b981", fontSize: 16, marginLeft: 4 }}>{bookA.words.length > 0 && bookB.words.length > 0 ? ((overlap.length / Math.min(bookA.words.length, bookB.words.length)) * 100).toFixed(1) : 0}%</strong>（少ない方の教材に対して）
           </div>
-
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, margin: "20px 0" }}>
             {[
               { l: bookA.name + "のみ", v: uniqA.length, c: "#f97316", bg: "#fff7ed", border: "#fdba74", k: "uniqA" },
@@ -160,7 +148,6 @@ export default function App() {
               </div>
             ))}
           </div>
-
           <input 
             placeholder="単語を検索..." 
             value={search} 
@@ -173,7 +160,6 @@ export default function App() {
           {showList === "uniqB" && <WordList title={bookB.name + "のみ"} words={uniqB} color="#0ea5e9" bg="#f0f9ff" searchTerm={search} />}
         </div>
       )}
-
       {(!bookA || !bookB) && (
         <div style={{ textAlign: "center", padding: "64px 20px", background: "#ffffff", borderRadius: 20, boxShadow: "0 4px 12px rgba(0,0,0,0.02)", marginTop: 16 }}>
           <p style={{ fontSize: 48, margin: "0 0 16px 0" }}>🍊</p>
