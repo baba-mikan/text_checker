@@ -162,7 +162,6 @@ export default function App() {
       )}
       {(!bookA || !bookB) && (
         <div style={{ textAlign: "center", padding: "64px 20px", background: "#ffffff", borderRadius: 20, boxShadow: "0 4px 12px rgba(0,0,0,0.02)", marginTop: 16 }}>
-          <p style={{ fontSize: 48, margin: "0 0 16px 0" }}>🍊</p>
           <p style={{ color: "#64748b", fontWeight: 700, fontSize: 15 }}>上のセレクトボックスから2つの教材を選んでください</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", marginTop: 24 }}>
             {TEXTBOOKS.map(t => (
