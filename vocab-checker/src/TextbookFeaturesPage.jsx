@@ -43,31 +43,22 @@ export default function TextbookFeaturesPage({ onBack }) {
           </div>
 
           <h4 style={{ fontSize: 15, fontWeight: 800, color: "#334155", margin: "0 0 12px" }}>構成</h4>
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 600 }}>
-              <thead>
-                <tr style={{ background: "#f8fafc" }}>
-                  {["Part", "セクション名", "区分", "単語番号", "語数", "レベル", "特徴"].map(h => (
-                    <th key={h} style={{ padding: "10px 8px", textAlign: "left", fontWeight: 700, color: "#64748b", borderBottom: "2px solid #e2e8f0", whiteSpace: "nowrap" }}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {info.sections.map((s, i) => (
-                  <tr key={i} style={{ borderBottom: "1px solid #f1f5f9" }}>
-                    <td style={{ padding: "10px 8px", fontWeight: 700, color: "#334155", whiteSpace: "nowrap" }}>{s.part}</td>
-                    <td style={{ padding: "10px 8px", fontWeight: 600, color: "#334155" }}>{s.name}</td>
-                    <td style={{ padding: "10px 8px", color: "#64748b", whiteSpace: "nowrap" }}>{s.sections}</td>
-                    <td style={{ padding: "10px 8px", color: "#64748b", whiteSpace: "nowrap" }}>{s.range}</td>
-                    <td style={{ padding: "10px 8px", fontWeight: 700, color: "#f97316", whiteSpace: "nowrap" }}>{s.wordCount != null ? s.wordCount + "語" : "-"}</td>
-                    <td style={{ padding: "10px 8px", whiteSpace: "nowrap" }}>
-                      <span style={{ padding: "3px 10px", background: "#f0f9ff", color: "#0369a1", borderRadius: 8, fontSize: 12, fontWeight: 700 }}>{s.level}</span>
-                    </td>
-                    <td style={{ padding: "10px 8px", color: "#64748b", fontSize: 12, lineHeight: 1.5 }}>{s.description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div style={{ display: "grid", gap: 12 }}>
+            {info.sections.map((s, i) => (
+              <div key={i} style={{ background: "#f8fafc", borderRadius: 14, padding: "16px", border: "1px solid #e2e8f0" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8, flexWrap: "wrap" }}>
+                  <span style={{ fontWeight: 800, fontSize: 15, color: "#334155" }}>{s.part}</span>
+                  <span style={{ fontWeight: 700, fontSize: 14, color: "#64748b" }}>{s.name}</span>
+                </div>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 10 }}>
+                  <span style={{ padding: "3px 10px", background: "#f0f9ff", color: "#0369a1", borderRadius: 8, fontSize: 12, fontWeight: 700 }}>{s.level}</span>
+                  {s.wordCount != null && <span style={{ padding: "3px 10px", background: "#fff7ed", color: "#c2410c", borderRadius: 8, fontSize: 12, fontWeight: 700 }}>{s.wordCount}語</span>}
+                  {s.range !== "-" && <span style={{ padding: "3px 10px", background: "#ffffff", color: "#64748b", borderRadius: 8, fontSize: 12, fontWeight: 600, border: "1px solid #e2e8f0" }}>{s.range}</span>}
+                  {s.sections !== "-" && <span style={{ padding: "3px 10px", background: "#ffffff", color: "#64748b", borderRadius: 8, fontSize: 12, fontWeight: 600, border: "1px solid #e2e8f0" }}>{s.sections}</span>}
+                </div>
+                <p style={{ margin: 0, fontSize: 13, color: "#64748b", fontWeight: 600, lineHeight: 1.6 }}>{s.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       )}
