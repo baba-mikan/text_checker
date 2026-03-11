@@ -131,7 +131,6 @@ export default function TestSchedulePage({ onBack }) {
   const [wordsPerTest, setWordsPerTest] = useState(100);
   const [frequency, setFrequency] = useState("weekly1");
   const [startDate, setStartDate] = useState("2025-04-05");
-  const [excludedDays, setExcludedDays] = useState([]);
   const [excludedDates, setExcludedDates] = useState([]);
   const [newExcludeDate, setNewExcludeDate] = useState("");
 
@@ -144,7 +143,7 @@ export default function TestSchedulePage({ onBack }) {
     const start = new Date(startDate + "T00:00:00");
     if (isNaN(start.getTime())) return null;
 
-    const testDays = generateTestDays(start, frequency, excludedDays, excludedDates, testCount);
+    const testDays = generateTestDays(start, frequency, [], excludedDates, testCount);
     const partCompletions = getPartCompletions(info.sections);
     const hasParts = partCompletions.length > 1;
 
@@ -194,11 +193,7 @@ export default function TestSchedulePage({ onBack }) {
     }
 
     return { testCount, rows, start, lastDate, weeks, partDates, hasParts };
-  }, [info, totalWords, wordsPerTest, frequency, startDate, excludedDays, excludedDates]);
-
-  const toggleDay = (day) => {
-    setExcludedDays(prev => prev.includes(day) ? prev.filter(d => d !== day) : [...prev, day]);
-  };
+  }, [info, totalWords, wordsPerTest, frequency, startDate, excludedDates]);
 
   const addExcludeDate = () => {
     if (newExcludeDate && !excludedDates.includes(newExcludeDate)) {
@@ -252,19 +247,6 @@ export default function TestSchedulePage({ onBack }) {
         <div style={{ marginBottom: 16 }}>
           <label style={{ fontSize: 13, fontWeight: 700, color: "#334155", marginBottom: 8, display: "block" }}>開始日</label>
           <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} style={{ padding: "10px 14px", borderRadius: 12, border: "2px solid #e2e8f0", fontSize: 15, fontWeight: 600, outline: "none" }} />
-        </div>
-
-        {/* Excluded days */}
-        <div style={{ marginBottom: 16 }}>
-          <label style={{ fontSize: 13, fontWeight: 700, color: "#334155", marginBottom: 8, display: "block" }}>対象外の曜日</label>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-            {DAY_NAMES.map((name, i) => (
-              <label key={i} style={{ display: "flex", alignItems: "center", gap: 4, padding: "6px 12px", background: excludedDays.includes(i) ? "#fef2f2" : "#f8fafc", border: excludedDays.includes(i) ? "2px solid #fca5a5" : "2px solid #e2e8f0", borderRadius: 10, cursor: "pointer", fontSize: 14, fontWeight: 600, color: excludedDays.includes(i) ? "#dc2626" : "#64748b" }}>
-                <input type="checkbox" checked={excludedDays.includes(i)} onChange={() => toggleDay(i)} style={{ display: "none" }} />
-                {name}
-              </label>
-            ))}
-          </div>
         </div>
 
         {/* Excluded dates */}
