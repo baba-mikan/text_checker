@@ -1,4 +1,6 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
+import TextbookFeaturesPage from "./TextbookFeaturesPage";
+import TestSchedulePage from "./TestSchedulePage";
 
 const TEXTBOOKS_RAW = {
   "ターゲット1900": "english,create,increase,improve,mean,own,include,consider,allow,suggest,produce,decide,offer,require,share,store,tend,concern,describe,involve,reduce,design,force,limit,bear,affect,deal,avoid,relate,realize,encourage,compare,measure,exist,mark,challenge,depend,object,demand,found,complete,idea,accord,company,interest,research,cause,reason,effect,influence,situation,environment,skill,matter,view,value,species,thought,knowledge,memory,practice,benefit,theory,issue,experiment,article,focus,subject,project,quality,role,term,statement,material,evidence,source,community,technology,culture,appropriate,likely,possible,individual,public,common,certain,similar,recent,major,patient,particular,physical,various,available,native,political,due,blank,ancient,correct,despite,notice,refer,approach,wonder,imagine,recognize,solve,occur,argue,claim,express,draw,waste,advance,spread,prepare,gain,achieve,establish,supply,suppose,perform,prefer,determine,treat,prove,apply,mention,communicate,contain,contact,regard,respect,search,connect,decline,prevent,suffer,survive,publish,opportunity,task,industry,medium,economy,policy,account,trade,model,figure,cell,image,emotion,stress,decade,range,character,advantage,phrase,damage,impact,method,resource,region,medicine,detail,feature,function,access,item,income,attitude,site,aspect,structure,habit,link,instance,positive,negative,complex,current,mental,specific,significant,essential,official,financial,academic,aware,worth,potential,active,digital,mobile,novel,plastic,chemical,necessary,eventually,identify,represent,indicate,manage,attend,maintain,survey,replace,sort,conduct,associate,attempt,promote,earn,unite,feed,seek,observe,reveal,estimate,reflect,attract,decrease,ignore,match,define,adapt,contribute,exchange,display,respond,hide,doubt,remove,wind,assume,relax,satisfy,desire,succeed,concept,fashion,device,charge,contrast,colleague,pain,bill,content,section,audience,surface,crop,topic,technique,status,option,reward,race,crime,conflict,struggle,context,debate,fuel,pollution,trend,balance,traffic,strategy,basis,consequence,aim,ancestor,gene,track,revolution,progress,cognitive,ideal,efficient,universal,vast,extra,entire,familiar,obvious,moral,ordinary,equal,previous,false,rare,legal,independent,extreme,actual,willing,urban,whereas,predict,examine,trust,stick,emerge,vary,release,divide,enable,judge,rely,engage,shift,adopt,acquire,expand,refuse,strike,repeat,consume,confuse,select,evolve,convince,recall,destroy,preserve,organize,warn,address,operate,participate,surround,flow,bore,complain,host,combine,extend,appreciate,target,element,principle,phenomenon,atmosphere,origin,personality,capacity,profit,circumstance,manner,threat,resident,wealth,institution,authority,vote,sight,campaign,fund,web,symbol,analysis,version,perspective,crisis,disaster,lecture,psychology,gender,custom,court,desert,soil,agriculture,fossil,document,vocabulary,intelligent,conscious,capable,accurate,fundamental,artificial,firm,overall,rural,military,nuclear,biological,constant,severe,visual,enormous,convenient,domestic,mass,typical,overseas,nevertheless,demonstrate,behave,educate,purchase,recommend,admit,generate,explore,amaze,tear,settle,afford,conclude,advertise,encounter,remind,locate,aid,bite,deliver,perceive,distinguish,imply,handle,praise,appeal,insist,compete,rank,deny,reject,intend,expose,favor,inspire,propose,spell,breathe,repair,consist,comment,instruction,religion,neighborhood,laboratory,presence,confidence,harm,instrument,category,capital,outcome,notion,review,trait,diversity,victim,occasion,facility,stock,conference,humanity,dialect,proportion,tip,lawyer,stuff,comfort,philosophy,mammal,quantity,landscape,tribe,organ,trial,norm,code,substance,multiple,numerous,narrow,widespread,sufficient,proper,linguistic,annual,contemporary,contrary,strict,civil,odd,unknown,superior,sensitive,violent,virtual,regardless,immediate,crucial,somewhat,interpret,translate,concentrate,request,criticize,overcome,obtain,inform,ensure,announce,grant,freeze,oppose,differ,hate,emphasize,employ,credit,transform,construct,arise,beat,regret,alter,absorb,disappoint,cure,transport,rush,hang,blame,ban,fascinate,recover,celebrate,manufacture,interact,arrange,adjust,confirm,insight,innovation,budget,fee,expense,debt,loan,duty,alarm,emergency,democracy,minister,fellow,candidate,corporation,stereotype,route,disorder,depression,weapon,immigration,barrier,disadvantage,mood,motion,routine,discipline,myth,hypothesis,physician,client,colony,statistics,grain,ingredient,treasure,contract,welfare,prime,curious,dramatic,distinct,anxious,vital,conventional,abstract,minor,extraordinary,stable,flexible,brief,aggressive,visible,unexpected,ethnic,alien,initial,exact,precise,latter,commit,stimulate,enhance,pursue,react,disagree,stare,abandon,quit,capture,transfer,bother,persuade,rent,breed,invest,reserve,trace,illustrate,advise,convey,attach,stretch,puzzle,disturb,crash,cope,permit,impress,suspect,upset,frighten,import,export,investigate,monitor,calculate,eliminate,ease,launch,sequence,therapy,symptom,incident,witness,sum,burden,tone,honor,award,priority,logic,minimum,exception,clue,bond,virus,surgery,insurance,frame,shelter,territory,boundary,habitat,district,conservation,harvest,predator,trap,trick,fault,discount,bias,cooperation,patent,dialogue,component,reputation,verbal,internal,solid,remote,principal,sophisticated,equivalent,rational,relevant,absolute,frequent,permanent,intense,meaningful,evil,extinct,random,raw,rude,mere,tropical,forth,possess,dominate,guarantee,melt,embarrass,discourage,detect,devote,urge,lend,restrict,isolate,accompany,exhaust,annoy,endanger,acknowledge,admire,evaluate,declare,secure,specialize,attribute,pretend,bury,reverse,resist,scare,imitate,assist,resemble,retire,neglect,collapse,reform,protest,owe,sustain,assign,accomplish,wisdom,literacy,heritage,mission,license,elite,layer,motor,protein,profession,editor,agent,globe,haven,row,sacrifice,means,session,league,contest,guard,opponent,glance,divorce,tissue,liquid,inequality,prejudice,justice,guideline,platform,sector,channel,glacier,primate,usage,fortune,correlation,artistic,literary,classic,liberal,concrete,slight,federal,primitive,unfamiliar,subtle,plain,marine,apparent,reluctant,temporary,guilty,royal,pure,incredible,eager,adequate,via,assess,approve,remark,pose,yield,exhibit,distribute,command,occupy,pop,pile,greet,apologize,frustrate,relieve,derive,deserve,peer,defeat,convert,wed,delight,boost,endure,correspond,impose,rescue,resolve,register,interrupt,rid,prohibit,compose,misunderstand,punish,ruin,defend,embrace,modify,qualify,passion,enthusiasm,phase,mode,span,gravity,orbit,asteroid,core,soul,nerve,infection,mall,grocery,humor,instinct,faith,courage,incentive,prospect,obstacle,architecture,stem,illusion,discrimination,shame,drought,flavor,portion,recipe,luxury,chip,ritual,sake,prefecture,council,administration,curriculum,precious,generous,casual,optimistic,rough,unpleasant,arctic,ultimate,deaf,genuine,manual,mechanical,instant,spare,immune,harsh,collective,inevitable,profound,steady,mature,likewise,chase,sue,gaze,slip,load,overwhelm,wander,float,pour,substitute,pronounce,shrink,restore,trigger,grab,retain,reproduce,bob,entertain,interfere,cultivate,underlie,anticipate,justify,regulate,scan,classify,submit,pause,lean,bump,fold,hesitate,pump,mount,exceed,undergo,confront,consult,fulfill,privilege,formation,dimension,neuron,sensation,chart,geography,panel,semester,workforce,mill,abuse,vice,fate,tragedy,scenario,allergy,wound,antibiotic,vaccine,metaphor,folk,fare,transition,maximum,galaxy,mineral,skeleton,counterpart,stroke,pedestrian,trail,ecology,sibling,ratio,mixture,charm,ambition,prominent,radical,prompt,informal,mutual,neutral,alert,magnetic,polar,fluent,external,passive,awful,unrelated,cruel,fake,vulnerable,urgent,spiritual,modest,keen,nonetheless,negotiate,grasp,donate,arrest,crack,tap,split,forecast,exclude,overlook,burst,heal,forbid,install,diminish,cite,quote,dispute,highlight,distract,cheat,foster,obey,bend,deprive,govern,log,transmit,bully,leap,astonish,thrill,nod,bow,blend,complicate,pitch,persist,dedicate,equip,premise,input,merit,sympathy,compliment,infrastructure,ray,distress,joint,expedition,adolescent,shade,jury,ethic,penalty,faculty,scheme,nutrition,particle,molecule,nationality,poll,clinic,dementia,fatigue,dilemma,queue,curve,narrative,fingerprint,file,wilderness,pesticide,panic,fabric,fantasy,fancy,virtue,grateful,valid,elaborate,moderate,dynamic,brave,brilliant,tremendous,oral,innocent,subsequent,shallow,indifferent,inferior,awkward,obese,pregnant,intimate,medieval,sacred,simultaneously,versus,proceed,orient,surf,filter,bind,resort,reinforce,accumulate,bet,advocate,constitute,undertake,grip,dismiss,fade,conceal,chew,swallow,seal,migrate,exaggerate,accuse,vanish,polish,wipe,sweep,mislead,spoil,compound,explode,disgust,commute,decorate,postpone,cease,compromise,elect,extract,inherit,rear,empathy,cue,enterprise,output,congress,millennium,mankind,muslim,estate,landmine,caution,controversy,consensus,retail,fiber,scent,beverage,supplement,diabetes,province,reef,microbe,excess,gallery,fame,deadline,undergraduate,slavery,prey,mess,recession,retreat,grave,column,scenery,plot,sculpture,tablet,dense,exotic,acid,bitter,sensible,noble,vague,parallel,tense,vertical,indigenous,aboriginal,seasonal,abundant,hybrid,irrelevant,ridiculous,fairy,sensory,chronic,voluntary,inclined,infer,esteem,tackle,venture,accelerate,accustom,amuse,flourish,thrive,nurture,click,spin,clip,drag,cast,scatter,tempt,withdraw,yawn,blink,dye,spill,irritate,insult,enforce,rob,drain,suspend,drift,forgive,revise,recruit,twist,crush,pin,uncover,exploit,implement,integrate,incorporate,profile,appetite,impulse,script,anniversary,pension,temper,cortex,syndrome,chamber,utility,cattle,herd,fluid,pity,priest,acquaintance,offspring,famine,deforestation,jail,commodity,format,recipient,drill,inability,republic,combat,debris,bug,fraction,index,intuition,motive,consent,hierarchy,monument,asset,decent,competent,straightforward,cosmetic,delicate,interior,transparent,aesthetic,deliberate,demographic,prehistoric,innate,mild,toxic,ashamed,humble,peculiar,steep,trivial,magnificent,wireless,ongoing,assure,precede,revive,compel,blossom,terrify,violate,suppress,deceive,manipulate,starve,flee,whisper,yell,deposit,confine,swing,prolong,depict,outline,shed,emit,renew,utilize,assert,strain,strive,dare,boast,startle,offend,compute,assemble,worsen,flip,rub,descend,compensate,comprise,prevail,quest,dignity,criterion,paradox,parliament,legislation,agenda,mainstream,troop,epidemic,outbreak,chaos,nightmare,horror,cluster,pollen,hive,irrigation,dose,suicide,feast,cuisine,rumor,proverb,signature,formula,tuition,intake,spectrum,kidney,gear,aisle,grief,destiny,skull,tomb,monk,worship,outstanding,unprecedented,infinite,worthwhile,indispensable,compulsory,probable,ambiguous,obscure,skeptical,fragile,static,gradual,vocal,vivid,imperial,hostile,superficial,scarce,gross,inherent,notable,update,refresh,bloom,conquer,induce,attain,spray,retrieve,portray,scratch,designate,contradict,sigh,disrupt,depart,navigate,beg,inhabit,diagnose,comprehend,oblige,cram,flock,underestimate,clarify,spark,seize,soar,glow,disguise,distort,undermine,abolish,strip,dispose,dump,weave,refine,enrich,coordinate,headline,internship,outlet,remedy,pill,reception,transaction,mutation,dairy,compassion,posture,curse,funeral,census,encyclopedia,cereal,fragment,patch,rubbish,maze,outlook,breakthrough,triumph,ally,spectator,sphere,county,behalf,interval,circulation,blade,theft,vacuum,collision,bargain,landmark,revenue,treaty,supreme,thorough,naked,sincere,tame,insufficient,dim,acute,disabled,metropolitan,monetary,alternate,partial,divine,drastic,fierce,sole,spontaneous,spatial,neat,tidy,loyal,bless,regain,conform,enroll,entitle,halt,provoke,invade,squeeze,crawl,digest,utter,refrain,populate,accommodate,steer,drown,dip,soak,stir,transplant,reassure,resume,speculate,surpass,appoint,intrigue,decay,contaminate,swell,delete,tolerate,envy,pray,confess,resign,dissolve,unfold,awaken,conceive,entrepreneur,stake,surplus,inflation,sweatshop,clash,sociology,ideology,margin,realm,domain,algorithm,prairie,frontier,bullet,shield,despair,radiation,placebo,nursery,spouse,makeup,mummy,flesh,limb,odor,laundry,tide,questionnaire,nonsense,revenge,intellect,hospitality,librarian,manuscript,obsession,hygiene,paradigm,legitimate,authentic,empirical,immense,absurd,weird,accidental,uneasy,jealous,feminine,swift,hollow,crude,sore,pessimistic,vain,susceptible,edible,sheer,explicit,prone,affluent,collaborate,exert,excel,prosper,surge,intervene,insert,overtake,snap,carve,addict,condemn,convict,dictate,prescribe,inhibit,stray,roam,enclose,execute,coincide,lag,cling,erase,grind,knit,inquire,betray,leak,smash,bounce,sprawl,converse,recite,disregard,frown,evoke,pledge,aspire,contemplate,grace,enlightenment,commerce,draft,barrel,timber,garment,thread,cabinet,bureau,autonomy,toll,discourse,superstition,glimpse,arithmetic,glossary,archive,legacy,anthropology,rage,sorrow,psychiatrist,ward,stall,flame,moisture,irony,warrior,astronomy,probe,altitude,tumor,defect,sanitation,longevity,scope,sentiment,plausible,vigorous,masculine,rigid,adverse,coherent,literal,arbitrary,anonymous,antique,eternal,intermediate,subordinate,gloomy,thermal,faint,naive,apt,arrogant,extrovert,conspicuous,intact,embody,illuminate,console,verify,disclose,stack,rotate,constrain,hinder,withstand,tweet,sneeze,erupt,blur,overlap,embed,displace,render,plunge,surrender,plug,suck,mock,tease,soothe,stain,shun,stumble,flush,impair,presume,contend,roar,haunt,divert,await,fetch,unify,inspect,entail,tactics,feat,prestige,analogy,conscience,textile,deficit,plague,hazard,metabolism,paralysis,grid,carriage,friction,rebel,regime,monopoly,staple,merchandise,vendor,supervisor,predecessor,personnel,vessel,liver,duration,certificate,geometry,symmetry,biography,masterpiece,rhyme,premium,breakdown,courtesy,protocol,specimen,thesis,eligible,intrinsic,diligent,vocational,bankrupt,stern,stubborn,maternal,fertile,ripe,stiff,obsolete,vacant,acoustic,preliminary,approximate,implicit,punctual,compatible,ample,pervasive,ubiquitous,deduce,simulate,merge,penetrate,cater,assault,torture,bleed,erect,cherish,arouse,doom,mourn,dread,nourish,inject,swear,bid,corrupt,preoccupy,browse,compile,allocate,offset,restrain,comply,expire,embark,flap,furnish,forge,thrust,dispatch,resent,reconcile,allege,oppress,expel,ascend,commence,advent,reign,diplomacy,embassy,exile,refuge,plight,solitude,fallacy,latitude,eclipse,basin,erosion,archaeology,errand,mercy,rhetoric,verse,congestion,sewage,complement,subsidy,mortgage,attorney,outfit,bulk,reunion,synthesis,mold,thirst,greed,bribe,contempt,texture,orphan,harassment,hay,doctrine,holistic,liable,earnest,intelligible,abrupt,reckless,furious,eloquent,juvenile,notorious,timid,humid,contagious,cynical,dumb,monotonous,perpetual,dizzy,weary,numb,mortal,zealous",
@@ -74,29 +76,54 @@ function WordList({ title, words, color, bg, searchTerm }) {
     </div>
   );
 }
-export default function App() {
+function TopPage({ onNavigate }) {
+  const cards = [
+    { key: "compare", icon: "🔍", title: "教材重複チェック", desc: "2つの教材を選んで共通単語を分析", color: "#f97316", bg: "#fff7ed", border: "#fdba74" },
+    { key: "features", icon: "📊", title: "教材の特徴", desc: "教材を選ぶと構成・レベル・特徴が表で見られる", color: "#0ea5e9", bg: "#f0f9ff", border: "#bae6fd" },
+    { key: "schedule", icon: "📅", title: "テストスケジュール", desc: "教材を選んでテスト計画を自動生成", color: "#10b981", bg: "#ecfdf5", border: "#6ee7b7" },
+  ];
+  return (
+    <div style={{ textAlign: "center" }}>
+      <h1 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 8px", color: "#f97316" }}>教材単語ツール</h1>
+      <p style={{ color: "#64748b", fontSize: 14, margin: "0 0 32px", fontWeight: 600 }}>使いたい機能を選んでください</p>
+      <div style={{ display: "grid", gap: 16 }}>
+        {cards.map(c => (
+          <div key={c.key} onClick={() => onNavigate(c.key)} style={{ background: "#ffffff", padding: "28px 20px", borderRadius: 20, boxShadow: "0 4px 16px rgba(0,0,0,0.04)", cursor: "pointer", border: `2px solid ${c.border}40`, transition: "all 0.2s", textAlign: "left", display: "flex", alignItems: "center", gap: 16 }}>
+            <div style={{ fontSize: 36, lineHeight: 1 }}>{c.icon}</div>
+            <div>
+              <div style={{ fontSize: 17, fontWeight: 800, color: c.color, marginBottom: 4 }}>{c.title}</div>
+              <div style={{ fontSize: 13, color: "#64748b", fontWeight: 600 }}>{c.desc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 32, display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }}>
+        {TEXTBOOKS.map(t => (
+          <span key={t.id} style={{ padding: "6px 12px", background: "#f1f5f9", borderRadius: 12, fontSize: 13, color: "#64748b", fontWeight: 600 }}>{t.name} ({t.words.length}語)</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ComparePage({ onBack }) {
   const [selA, setSelA] = useState("");
   const [selB, setSelB] = useState("");
   const [search, setSearch] = useState("");
   const [showList, setShowList] = useState("overlap");
-  
+
   const bookA = TEXTBOOKS.find(t => t.id === selA);
   const bookB = TEXTBOOKS.find(t => t.id === selB);
   const overlap = bookA && bookB ? getOverlap(bookA.words, bookB.words) : [];
   const uniqA = bookA && bookB ? getUnique(bookA.words, bookB.words) : [];
   const uniqB = bookA && bookB ? getUnique(bookB.words, bookA.words) : [];
   return (
-    <div style={{ 
-      fontFamily: "'Zen Maru Gothic', 'Hiragino Rounded W3 JIS2004', 'Hiragino Maru Gothic ProN', 'Nunito', 'Meiryo', sans-serif", 
-      maxWidth: 800, 
-      margin: "0 auto", 
-      padding: "32px 20px", 
-      color: "#334155",
-      background: "#FAFAFA",
-      minHeight: "100vh"
-    }}>
+    <div>
+      <button onClick={onBack} style={{ background: "none", border: "none", color: "#f97316", fontWeight: 700, fontSize: 15, cursor: "pointer", padding: "8px 0", marginBottom: 16 }}>
+        ← トップに戻る
+      </button>
       <div style={{ textAlign: "center", marginBottom: 32 }}>
-        <h1 style={{ fontSize: 24, fontWeight: 800, margin: 0, color: "#f97316" }}>教材単語 重複チェッカー</h1>
+        <h2 style={{ fontSize: 22, fontWeight: 800, margin: 0, color: "#f97316" }}>教材重複チェック</h2>
         <p style={{ color: "#64748b", fontSize: 14, margin: "8px 0 0", fontWeight: 600 }}>2つの教材を選んで共通単語を分析</p>
       </div>
       <div style={{ display: "flex", gap: 16, marginBottom: 24, flexWrap: "wrap", alignItems: "center" }}>
@@ -170,6 +197,28 @@ export default function App() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+export default function App() {
+  const [currentPage, setCurrentPage] = useState("top");
+  const goTop = () => setCurrentPage("top");
+
+  return (
+    <div style={{
+      fontFamily: "'Zen Maru Gothic', 'Hiragino Rounded W3 JIS2004', 'Hiragino Maru Gothic ProN', 'Nunito', 'Meiryo', sans-serif",
+      maxWidth: 800,
+      margin: "0 auto",
+      padding: "32px 20px",
+      color: "#334155",
+      background: "#FAFAFA",
+      minHeight: "100vh"
+    }}>
+      {currentPage === "top" && <TopPage onNavigate={setCurrentPage} />}
+      {currentPage === "compare" && <ComparePage onBack={goTop} />}
+      {currentPage === "features" && <TextbookFeaturesPage onBack={goTop} />}
+      {currentPage === "schedule" && <TestSchedulePage onBack={goTop} />}
     </div>
   );
 }
